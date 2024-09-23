@@ -1,13 +1,12 @@
- 
 import React, { useState } from 'react';
-import PostList from './PostList';
-import '../Post.css';
+import PostList from './PostList'; 
+import '../Post.css'; 
 
 function Posts() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value); // Actualizar el estado de búsqueda
+    setSearchTerm(e.target.value); // Actualizar el estado de búsqueda cuando se escribe en el campo
   };
 
   return (
@@ -16,20 +15,17 @@ function Posts() {
 
       <div className="posts-content">
         
-        
-
-        {/* Renderizar la lista de posts */}
-        <PostList searchTerm={searchTerm} /> {/* Pasar el término de búsqueda a PostList */}
-
-        {/* Barra de búsqueda revisar porque al buyscar el fondo y archivo q1ueda mas pequeño*/}
         <div className="search-bar">
           <input
             type="text"
             placeholder="Buscar posts..."
             value={searchTerm}
-            onChange={handleSearch} // Actualizar la búsqueda
+            onChange={handleSearch} // Actualizar la búsqueda cuando se cambia el valor
           />
         </div>
+
+        
+        <PostList searchTerm={searchTerm} /> 
       </div>
     </div>
   );

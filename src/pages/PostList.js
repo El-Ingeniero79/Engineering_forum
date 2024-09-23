@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../context/AuthContext';
@@ -14,11 +13,11 @@ function PostList({ searchTerm }) {
     const fetchPosts = async () => {
       let query = supabase
         .from('posts')
-        .select('id, title, content, restricted, user_id, profiles!inner(nick)')
+        .select('id, title, content, restricted, image_url, user_id, profiles!inner(nick)')
         .order('created_at', { ascending: false });
 
       if (!user) {
-        // Si el usuario no está autenticado, solo mostrar posts no restringidos
+        // Mostrar solo posts no restringidos si el usuario no está autenticado
         query = query.eq('restricted', false);
       }
 
@@ -36,7 +35,7 @@ function PostList({ searchTerm }) {
     };
 
     fetchPosts();
-  }, [user, searchTerm]); // Actualizo cada vez que cambie el usuario o el término de búsqueda
+  }, [user, searchTerm]);
 
   return (
     <div className="post-detail-container">
@@ -50,6 +49,14 @@ function PostList({ searchTerm }) {
                   <h3>{post.title}</h3>
                 </Link>
                 <p><strong>Autor:</strong> {post.profiles.nick}</p>
+
+                {/* Mostrar la imagen si está presente */}
+                {post.image_url && (
+                  <div className="post-image">
+                    <img src={post.image_url} alt={post.title} />
+                  </div>
+                )}
+                
                 <p>{isRestrictedAndNotLoggedIn ? 'Este mensaje está restringido.' : post.content.substring(0, 50) + '...'}</p>
               </div>
             );

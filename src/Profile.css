@@ -1,0 +1,75 @@
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+  }
+  
+  
+  .profile-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+  }
+  
+  
+  .profile-card h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #007bff;
+  }
+  
+  
+  .profile-info p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  /* Negrita para destacar los títulos */
+  .profile-info strong {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* Color de fondo para todo el perfil */
+  .profile-container {
+    background-color: #f9f9fb;
+  }
+  
+  /* Media queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .profile-card {
+      padding: 1.5rem;
+      max-width: 100%;
+    }
+  
+    .profile-card h1 {
+      font-size: 1.75rem;
+    }
+  
+    .profile-info p {
+      font-size: 1rem;
+    }
+  }
+  
+  /* Media queries para pantallas extra pequeñas  revisar si entraria en conflicto con el anterior, lo pongo en comentario para prueba*/
+  @media (max-width: 576px) {
+    .profile-card {
+      padding: 1rem;
+    }
+  
+    .profile-card h1 {
+      font-size: 1.5rem;
+    }
+  
+    .profile-info p {
+      font-size: 0.9rem;
+    }
+  }

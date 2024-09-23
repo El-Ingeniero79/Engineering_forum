@@ -1,0 +1,93 @@
+
+
+/* Asegura que el fondo ocupa toda la pantalla */
+.form-container {
+  background-image: url('./images/imagen_ingenieria4_login.jpg'); 
+  background-size: cover; /* Hace que la imagen cubra todo el contenedor */
+  background-position: center; 
+  background-repeat: no-repeat; 
+  display: flex;
+  flex-direction: column; /* Alinea verticalmente */
+  justify-content: center; /* Centra el contenido verticalmente */
+  align-items: center; /* Centra el contenido horizontalmente */
+  height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+  width: 100vw; /* Asegura que ocupe todo el ancho de la ventana */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilos para el título */
+.form-container h1 {
+  margin-bottom: 20px; 
+  color: white; 
+  font-size: 36px;
+  z-index: 1; /* Asegura que el título esté encima del fondo */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+}
+
+/* Estilos generales del formulario */
+form {
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente leerlom ejor, en caso de que no sea asi revisarlo */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  z-index: 1; /* Asegura que el formulario esté por encima del fondo */
+}
+
+/* Estilos de los campos de texto */
+form input[type="email"],
+form input[type="password"],
+form input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 18px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Estilos del botón */
+form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos responsive. revisar como queda sino modificar */
+@media (max-width: 768px) {
+  form {
+    padding: 20px;
+  }
+
+  form input[type="email"],
+  form input[type="password"],
+  form input[type="text"] {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  form button {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,116 @@
+
+
+.home-container {
+  background-image: url('./images/imagen_ingenieria.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinear al inicio de la página */
+  padding: 20px;
+  z-index: 1;
+}
+
+/* Capas de opacidad encima de la imagen */
+.home-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: -1;
+}
+
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column; /* Alinear las secciones en columnas (primero el título, luego los posts) */
+  max-width: 1200px;
+  width: 100%;
+  gap: 20px; /* Añadir espacio entre el título y los últimos posts */
+}
+
+/* Contenido principal */
+.main-content {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Últimos posts revisar si queda chulo en pantalla */
+.latest-posts-container {
+  position: relative;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat window */
+.chat-window {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+/* Estilos para los mensajes */
+.chat-message {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.chat-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.chat-content {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Ver más formato. pendiente revisar si queda bien */
+.view-more {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.view-more a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.view-more a:hover {
+  text-decoration: underline;
+}
+
+/* responsive */
+@media (min-width: 768px) {
+  .content-wrapper {
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .main-content {
+    width: 60%;
+  }
+
+  .latest-posts-container {
+    width: 35%;
+  }
+}

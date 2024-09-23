@@ -1,0 +1,129 @@
+
+
+
+.postform-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('./images/imagen_ingenieria3_pensando.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Capa semitransparente encima de la imagen con desenfoque */
+.postform-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: inherit;
+  background-size: inherit; 
+  background-position: inherit; 
+  background-repeat: inherit; 
+  filter: blur(10px); /* Aplicar desenfoque de 10px, ver si queda bien sino modificar numero */
+  opacity: 0.8; /* Para controlar la visibilidad de la capa desenfocada ver si queda bien sino modificar numero*/
+  z-index: -1; /* Hace que el fondo esté detrás del contenido  */
+}
+
+/* Tarjeta del formulario */
+.postform-card {
+  background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente revisar si queda chulo, sino modificar numero */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
+  z-index: 1; /* Asegura que el contenido esté por encima de la imagen de fondo */
+}
+
+/* Estilo de los campos de entrada */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.textarea {
+  height: 150px;
+}
+
+/* Estilo para el área de arrastrar y soltar imagenes */
+.file-upload {
+  border: 2px dashed #ddd;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: relative;
+  color: #888;
+  transition: background-color 0.3s ease;
+}
+
+.file-upload input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-upload.drag-active {
+  background-color: #f0f8ff;
+  border-color: #007bff;
+  color: #007bff;
+}
+
+/* Estilo para los botones */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .postform-card {
+      width: 100%;
+      padding: 20px;
+  }
+
+  .file-upload {
+      padding: 15px;
+  }
+
+  .form-actions {
+      flex-direction: column;
+      gap: 15px;
+  }
+
+  .btn-primary {
+      width: 100%;
+  }
+}

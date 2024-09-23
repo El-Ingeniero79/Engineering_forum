@@ -1,0 +1,195 @@
+
+
+
+.posts-container {
+  background-image: url('./images/imagen_ingenieria2.jpg'); 
+  background-size: cover;  
+  background-position: center; 
+  background-repeat: no-repeat; 
+  position: relative;
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Capas de opacidad encima de la imagen */
+.posts-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco semi-transparente */
+  z-index: -1; /* Hace que el fondo esté detrás del contenido */
+}
+
+/* Contenedor para organizar los posts y la barra de búsqueda */
+.posts-content {
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  margin: 0 auto; /* Centrar contenido horizontalmente */
+}
+
+/* Estilo para la lista de posts */
+.post-list {
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para el texto */
+  border-radius: 10px;
+  width: 70%; /* Ajustado al 70% para dejar espacio para la barra de búsqueda */
+  max-width: 800px;
+  transition: width 0.3s ease; /* Añadir una transición suave cuando se ajusta el tamaño */
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  width: 25%; /* Barra de búsqueda ocupa 25% del ancho en pantallas grandes revisar si queda mejor mas pequeña*/
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  position: sticky;
+  top: 20px; /* Fija la barra de búsqueda en su posición al hacer scroll */
+  align-self: flex-start;
+  background-color: white; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 5px; 
+  z-index: 2;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+/* Estilos para cada post */
+.post-container {
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+.post-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.post-content {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Estilo para los posts restringidos */
+.restricted-post {
+  background-color: #f0f0f0;
+  color: #999;
+  border: 1px solid #ccc;
+}
+
+/* Margen en la parte superior de cada post */
+.post {
+  margin-bottom: 40px;
+}
+
+/* Estilo para la ventana de últimos posts */
+.latest-posts-container {
+  position: absolute;
+  align-items: center;
+  top: 100px;
+  right: 20px;
+  width: 400px;
+}
+
+.chat-window {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  height: 400px;
+  overflow-y: scroll;
+  box-shadow: -31px 16px 24px -3px rgba(69, 160, 73, 1);
+}
+
+.chat-message {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.chat-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.chat-content {
+  font-size: 14px;
+  color: #555;
+}
+
+.view-more {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.view-more a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.view-more a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .posts-content {
+    flex-direction: column;
+  }
+
+  /* Barra de búsqueda fija debajo del título y visible en todo momento al hacer scroll */
+  .search-bar {
+    width: 100%; 
+    position: fixed; /* Barra fija al hacer scroll */
+    top: 60px; /*revisar para diferentes tamaños creo que habria que revisar extremos de tamaños porque se solapan en algunos */
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    z-index: 10; /* Asegura que esté siempre visible por encima de otros elementos */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
+
+  .post-list {
+    width: 100%; /* Los posts ocupan todo el ancho en pantallas pequeñas */
+    padding-top: 100px;/* revisar este valor por si se solapa con la barra de busqueda */
+  }
+
+  .post-container {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .post-title {
+    font-size: 20px;
+  }
+
+  .post-content {
+    font-size: 14px;
+  }
+}

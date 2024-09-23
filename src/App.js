@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+// src/App.js
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
+import PostDetail from './pages/PostDetail';
+import PostForm from './pages/PostForm';
+import PostList from './pages/PostList';
+import Posts from './pages/Posts';
+// import './Post.css'
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+     
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/create-post" element={<PostForm />} />
+          <Route path="/posts" element={<Posts />} /> 
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 

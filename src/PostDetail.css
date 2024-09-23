@@ -1,0 +1,35 @@
+
+.post-detail-container {
+    background-image: url('./images/imagen_ingenieria2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Fondo translúcido */
+  .post-detail-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: -1;
+  }
+  
+  /* Estilo del contenido del post */
+  .post-detail-container h1,
+  .post-detail-container p {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+  }
+  

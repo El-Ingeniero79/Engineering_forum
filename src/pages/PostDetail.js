@@ -1,4 +1,4 @@
-// src/pages/PostDetail.js
+
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ function PostDetail() {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [commentContent, setCommentContent] = useState('');
-  const [isEditingComment, setIsEditingComment] = useState(null); // Para editar comentarios
+  const [isEditingComment, setIsEditingComment] = useState(null); // Para editar comentarios ver porque no me deja publicar comentarios
   const [editingContent, setEditingContent] = useState('');
   const [isEditingPost, setIsEditingPost] = useState(false); // Para editar post
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ function PostDetail() {
       .from('posts')
       .delete()
       .eq('id', id);
-    navigate('/'); // Redirigir al usuario después de eliminar el post
+    navigate('/'); // Redirigir al incio al usuario después de eliminar el post
   };
 
   const handleCommentEdit = async (commentId) => {
@@ -147,7 +147,7 @@ function PostDetail() {
         )}
         
 
-        {/* Mostrar comentarios */}
+        {/* Mostrar comentarios ver porque no me los guarda*/}
         <h2>Respuestas</h2>
         <div>
           {comments.length > 0 ? (

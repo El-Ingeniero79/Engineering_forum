@@ -101,7 +101,7 @@
 /* responsive */
 @media (min-width: 768px) {
   .content-wrapper {
-    flex-direction: row; 
+    flex-direction: row; /* para pantallas grandes */
     justify-content: space-between;
     align-items: flex-start;
   }

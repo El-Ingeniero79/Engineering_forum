@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from sqlalchemy.orm import validates
+import re
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -8,17 +10,24 @@ class User(db.Model):
     __tablename__ = 'user'
     
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False, index=True)  # Añadí índice
-    password = db.Column(db.String(255), nullable=False)  # Aumenté el tamaño del campo
-    nick = db.Column(db.String(50), unique=True, nullable=False, index=True)  # Añadí índice
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)  # Índice añadido
+    password = db.Column(db.String(255), nullable=False)  # Campo de tamaño aumentado
+    nick = db.Column(db.String(50), unique=True, nullable=False, index=True)  # Índice añadido
     posts = db.relationship('Post', backref='author', lazy=True)
+
+    
+    @validates('email')
+    def validate_email(self, key, address):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", address):
+            raise ValueError("El formato del email no es válido")
+        return address
 
     def serialize(self):
         return {
             'id': self.id,
             'email': self.email,
             'nick': self.nick
-            # he eliminado la contraseña por seguridad
+            # Contraseña excluida por razones de seguridad
         }
 
 class Post(db.Model):

@@ -19,9 +19,9 @@ function Register() {
       return;
     }
     try {
-      setError(''); // Limpiar cualquier error anterior
-      // Aquí registramos el usuario
-      const response = await axios.post('http://localhost:5000/api/register', {
+      setError(''); 
+      
+      const response = await axios.post('http://localhost:5000/register', {
         email,
         password,
         nick,
@@ -29,9 +29,9 @@ function Register() {
       if (response.data.error) {
         throw new Error(response.data.error);
       }
-      // Guardar el token recibido en localStorage
+      
       localStorage.setItem('token', response.data.token); 
-      // Navegar a la página principal si el registro fue exitoso
+      
       navigate('/');
     } catch (error) {
       setError('Registration failed: ' + error.message);

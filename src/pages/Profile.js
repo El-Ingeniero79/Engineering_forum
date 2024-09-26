@@ -6,19 +6,21 @@ import { Link } from 'react-router-dom';
 function Profile() {
   const { user } = useAuth();
   const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState([]);
   const [nick, setNick] = useState('');
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const postResponse = await axios.get('/posts', {
+        
+        const postResponse = await axios.get('http://localhost:5000/posts', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setPosts(postResponse.data);
 
-       
-        const profileResponse = await axios.get(`/users/${user.id}`);
+        
+        const profileResponse = await axios.get(`http://localhost:5000/users/${user.id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, 
+        });
         setNick(profileResponse.data.nick);
       } catch (error) {
         console.error('Error fetching profile data:', error);
@@ -50,8 +52,6 @@ function Profile() {
           <p>No has publicado ningún post.</p>
         )}
       </ul>
-
-      
     </div>
   );
 }

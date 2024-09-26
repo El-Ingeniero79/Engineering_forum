@@ -1,8 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import '../Home.css'; 
 
 function Home() {
@@ -12,42 +11,29 @@ function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      let query = supabase
-        .from('posts')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
-
-      if (!user) {
-        // Si no está autenticado, solo mostrar posts no restringidos
-        query = query.eq('restricted', false);
-      }
-
-      const { data, error } = await query;
-
-      if (error) {
+      try {
+        const response = await axios.get('/posts', {
+          params: { limit: 5 }
+        });
+        setPosts(response.data);
+      } catch (error) {
         console.error('Error fetching posts:', error);
-      } else {
-        setPosts(data);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     fetchPosts();
-  }, [user]); // Ejecutar cada vez que el estado de autenticación cambie
+  }, []);
 
   const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="home-container"> 
+    <div className="home-container">
       <div className="content-wrapper">
         <div className="main-content">
           <h1>Foro de Ingeniería</h1>
@@ -69,9 +55,8 @@ function Home() {
             )}
           </div>
 
-        
           <div className="view-more">
-            <Link to="/posts">Ver más</Link> 
+            <Link to="/posts">Ver más</Link>
           </div>
         </div>
       </div>

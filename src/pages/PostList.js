@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import '../Post.css';
@@ -11,56 +11,35 @@ function PostList({ searchTerm }) {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      let query = supabase
-        .from('posts')
-        .select('id, title, content, restricted, image_url, user_id, profiles!inner(nick)')
-        .order('created_at', { ascending: false });
-
-      if (!user) {
-        // Mostrar solo posts no restringidos si el usuario no está autenticado
-        query = query.eq('restricted', false);
-      }
-
-      const { data, error } = await query;
-      if (error) {
-        console.error('Error fetching posts:', error);
-      } else {
-        // Filtrar posts según el término de búsqueda
-        const filteredPosts = data.filter(post => 
-          post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-          post.content.toLowerCase().includes(searchTerm.toLowerCase())
+      try {
+        const response = await axios.get('/posts');
+        const filteredPosts = response.data.filter(post =>
+          post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.content?.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setPosts(filteredPosts);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
       }
     };
 
     fetchPosts();
-  }, [user, searchTerm]);
+  }, [searchTerm]);
 
   return (
     <div className="post-detail-container">
       <div className="post-list">
         {posts.length > 0 ? (
-          posts.map((post) => {
-            const isRestrictedAndNotLoggedIn = post.restricted && !user;
-            return (
-              <div key={post.id} className={`post-container ${isRestrictedAndNotLoggedIn ? 'restricted-post' : ''}`}>
-                <Link to={`/post/${post.id}`}>
-                  <h3>{post.title}</h3>
-                </Link>
-                <p><strong>Autor:</strong> {post.profiles.nick}</p>
-
-                {/* Mostrar la imagen si está presente */}
-                {post.image_url && (
-                  <div className="post-image">
-                    <img src={post.image_url} alt={post.title} />
-                  </div>
-                )}
-                
-                <p>{isRestrictedAndNotLoggedIn ? 'Este mensaje está restringido.' : post.content.substring(0, 50) + '...'}</p>
-              </div>
-            );
-          })
+          posts.map((post) => (
+            <div key={post.id} className={`post-container ${post.restricted && !user ? 'restricted-post' : ''}`}>
+              <Link to={`/post/${post.id}`}>
+                <h3>{post.title || 'Título no disponible'}</h3>
+              </Link>
+              <p><strong>Autor:</strong> {post.author?.nick || 'Autor desconocido'}</p>
+              <p>{post.restricted && !user ? 'Este mensaje está restringido.' : (post.content ? post.content.substring(0, 50) + '...' : 'Contenido no disponible')}</p>
+              {post.image_url && <img src={post.image_url} alt="Post Attachment" className="post-image" />}
+            </div>
+          ))
         ) : (
           <p>No hay posts disponibles.</p>
         )}

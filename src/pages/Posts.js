@@ -14,7 +14,9 @@ function Posts() {
       <h1>Posts</h1>
 
       <div className="posts-content">
-        
+        {/* Renderizar la lista de posts */}
+        <PostList searchTerm={searchTerm} /> 
+        {/* Barra de búsqueda */}
         <div className="search-bar">
           <input
             type="text"
@@ -25,7 +27,6 @@ function Posts() {
         </div>
 
         
-        <PostList searchTerm={searchTerm} /> 
       </div>
     </div>
   );

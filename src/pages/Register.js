@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
+import axios from 'axios';  // Usamos Axios para las solicitudes HTTP
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // comprobado que la importacion esta bien para usar los perfiles
 import '../Form.css'; 
 
 function Register() {
@@ -14,7 +13,7 @@ function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  // comprobacion de que email y contraseña coinciden
+  // Comprobación de contraseñas
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,18 +25,18 @@ function Register() {
     try {
       setError(''); // Limpiar cualquier error anterior
 
-      // aqui registro email y password ver si aqui puede estar el error de registro o es por algun tipo de configaracion de supabase
-      const { user, error: authError } = await register(email, password);
-      if (authError) throw new Error(authError.message);
+      // Aquí registramos el usuario
+      const response = await axios.post('/api/register', {
+        email,
+        password,
+        nick
+      });
 
-      
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert([{ id: user.id, nick }]);
+      if (response.data.error) {
+        throw new Error(response.data.error);
+      }
 
-      if (profileError) throw new Error(profileError.message);
-
-      // en teoria si el registroi esta ok nos envia al principio para poder navegar
+      // Navegar a la página principal si el registro fue exitoso
       navigate('/');
     } catch (error) {
       setError('Registration failed: ' + error.message);

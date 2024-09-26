@@ -18,7 +18,7 @@ class User(db.Model):
             'id': self.id,
             'email': self.email,
             'nick': self.nick
-            # No se incluye la contraseña
+            # he eliminado la contraseña por seguridad
         }
 
 class Post(db.Model):

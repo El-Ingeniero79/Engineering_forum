@@ -5,7 +5,7 @@ function PostForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [restricted, setRestricted] = useState(false);
-  const userId = 1; // Simulación del usuario autenticado
+  const userId = 1;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

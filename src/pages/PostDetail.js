@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';  
+import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../Post.css';
@@ -8,14 +8,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function PostDetail() {
-  const { id } = useParams(); 
-  const { user } = useAuth(); 
+  const { id } = useParams();
+  const { user } = useAuth();
   const [post, setPost] = useState(null);
   const [isEditingPost, setIsEditingPost] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Obtener el post
     const fetchPost = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
@@ -24,14 +23,13 @@ function PostDetail() {
         console.error('Error obteniendo el post:', error);
       }
     };
-
     fetchPost();
   }, [id]);
 
   const handlePostDelete = async () => {
     try {
       await axios.delete(`http://localhost:5000/api/posts/${id}`);
-      navigate('/'); 
+      navigate('/');
     } catch (error) {
       console.error('Error eliminando el post:', error);
     }
@@ -54,7 +52,6 @@ function PostDetail() {
     <div className="post-detail-container">
       <div className="post-container">
         <h1>{post.title}</h1>
-
         {isEditingPost ? (
           <>
             <textarea
@@ -66,7 +63,6 @@ function PostDetail() {
         ) : (
           <p>{post.content}</p>
         )}
-
         {user && user.id === post.user_id && (
           <>
             <button onClick={() => setIsEditingPost(!isEditingPost)} className="icon-button">

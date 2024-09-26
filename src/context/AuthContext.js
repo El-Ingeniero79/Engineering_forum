@@ -9,16 +9,15 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Configurar URL base de Axios para que apunte al servidor de Flask
   axios.defaults.baseURL = 'http://localhost:5000';
 
   const login = async (email, password) => {
     try {
       const { data } = await axios.post('/login', { email, password });
       localStorage.setItem('token', data.token);
-      setUser(data.user);  // Guardar datos del usuario
+      setUser(data.user);  
     } catch (error) {
-      throw new Error('Falló el inicio de sesión');  // Propagar el error al componente que llama
+      throw new Error('Falló el inicio de sesión');  
     }
   };
 
@@ -26,13 +25,13 @@ export const AuthProvider = ({ children }) => {
     try {
       await axios.post('/register', { email, password, nick });
     } catch (error) {
-      throw new Error('Falló el registro');  // Propagar el error al componente que llama
+      throw new Error('Algo Falló en el registro'); 
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
-    setUser(null);  // Limpiar el usuario al cerrar sesión
+    setUser(null);  
   };
 
   useEffect(() => {
@@ -43,13 +42,13 @@ export const AuthProvider = ({ children }) => {
           const { data } = await axios.get('/me', {
             headers: { Authorization: `Bearer ${token}` }
           });
-          setUser(data.user);  // Guardar datos del usuario
+          setUser(data.user); 
         } catch (error) {
           console.error('Error al validar el token:', error);
-          localStorage.removeItem('token');  // Eliminar el token si es inválido
+          localStorage.removeItem('token');  
         }
       }
-      setLoading(false);  // Finalizar la carga inicial
+      setLoading(false); 
     };
 
     checkUser();

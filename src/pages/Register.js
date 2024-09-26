@@ -1,41 +1,36 @@
 import React, { useState } from 'react';
-import axios from 'axios';  // Usamos Axios para las solicitudes HTTP
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import '../Form.css'; 
+import '../Form.css';
 
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [nick, setNick] = useState(''); 
-  const { register } = useAuth();
+  const [nick, setNick] = useState('');
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  // Comprobación de contraseñas
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
     try {
       setError(''); // Limpiar cualquier error anterior
-
       // Aquí registramos el usuario
-      const response = await axios.post('/api/register', {
+      const response = await axios.post('http://localhost:5000/api/register', {
         email,
         password,
-        nick
+        nick,
       });
-
       if (response.data.error) {
         throw new Error(response.data.error);
       }
-
+      // Guardar el token recibido en localStorage
+      localStorage.setItem('token', response.data.token); 
       // Navegar a la página principal si el registro fue exitoso
       navigate('/');
     } catch (error) {

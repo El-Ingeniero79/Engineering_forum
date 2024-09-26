@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../.api';  
 
 const AuthContext = createContext();
 
@@ -9,15 +9,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  axios.defaults.baseURL = 'http://localhost:5000';
-
   const login = async (email, password) => {
     try {
       const { data } = await axios.post('/login', { email, password });
       localStorage.setItem('token', data.token);
       setUser(data.user);  
     } catch (error) {
-      throw new Error('Falló el inicio de sesión');  
+      console.error('Error en login:', error);
+      throw new Error(error.response?.data?.message || 'Falló el inicio de sesión');
     }
   };
 
@@ -25,7 +24,8 @@ export const AuthProvider = ({ children }) => {
     try {
       await axios.post('/register', { email, password, nick });
     } catch (error) {
-      throw new Error('Algo Falló en el registro'); 
+      console.error('Error en register:', error);
+      throw new Error(error.response?.data?.message || 'Algo falló en el registro');
     }
   };
 
@@ -35,17 +35,26 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      axios.interceptors.request.use(
+        (config) => {
+          config.headers.Authorization = `Bearer ${token}`;
+          return config;
+        },
+        (error) => Promise.reject(error)
+      );
+    }
+
     const checkUser = async () => {
-      const token = localStorage.getItem('token');
       if (token) {
         try {
-          const { data } = await axios.get('/me', {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          setUser(data.user); 
+          const { data } = await axios.get('/me');
+          setUser(data.user);
         } catch (error) {
           console.error('Error al validar el token:', error);
-          localStorage.removeItem('token');  
+          localStorage.removeItem('token');
         }
       }
       setLoading(false); 

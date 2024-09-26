@@ -1,0 +1,2 @@
+al hacer login y register me da error 500(fallo interno servidor), se accede a la base de datos ya que al hacer login si entro con una cuenta no registrada me da error de no registrado
+revisar postdetail.js ya que al pinchar en el post para verlo completo no encuentra el post, creo que puede ser tema del id revisarlo

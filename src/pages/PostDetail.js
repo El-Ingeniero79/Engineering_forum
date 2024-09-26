@@ -6,6 +6,7 @@ import '../Post.css';
 import '../PostDetail.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import './PostList';
 
 function PostDetail() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function PostDetail() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const response = await axios.get(`/posts/${id}`);
         setPost(response.data);
       } catch (error) {
         console.error('Error obteniendo el post:', error);
@@ -28,7 +29,7 @@ function PostDetail() {
 
   const handlePostDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`);
+      await axios.delete(`/posts/${id}`);
       navigate('/');
     } catch (error) {
       console.error('Error eliminando el post:', error);
@@ -37,9 +38,9 @@ function PostDetail() {
 
   const handlePostEdit = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/posts/${id}`, { content: post.content });
+      await axios.put(`/posts/${id}`, { content: post.content });
       setIsEditingPost(false);
-      const response = await axios.get(`/api/posts/${id}`);
+      const response = await axios.get(`/posts/${id}`);
       setPost(response.data);
     } catch (error) {
       console.error('Error editando el post:', error);

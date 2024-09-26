@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 venv/
+.env/
  __pycache__/
 *.py[co]
 /.pnp
@@ -14,4 +15,4 @@ venv/
 # production
 /build
 
-.env
+.env/

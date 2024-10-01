@@ -1,5 +1,3 @@
-
-
 .home-container {
   background-image: url('./images/imagen_ingenieria.jpg');
   background-size: cover;
@@ -9,12 +7,12 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Alinear al inicio de la página */
+  align-items: flex-start; 
   padding: 20px;
   z-index: 1;
 }
 
-/* Capas de opacidad encima de la imagen */
+
 .home-container::before {
   content: '';
   position: absolute;
@@ -26,16 +24,15 @@
   z-index: -1;
 }
 
-
 .content-wrapper {
   display: flex;
-  flex-direction: column; /* Alinear las secciones en columnas (primero el título, luego los posts) */
+  flex-direction: column; 
   max-width: 1200px;
   width: 100%;
-  gap: 20px; /* Añadir espacio entre el título y los últimos posts */
+  gap: 20px; 
 }
 
-/* Contenido principal */
+
 .main-content {
   text-align: center;
   padding: 2rem;
@@ -43,9 +40,10 @@
   border-radius: 10px;
   z-index: 1;
   width: 100%;
+  margin-bottom: 20px;
 }
 
-/* Últimos posts revisar si queda chulo en pantalla */
+
 .latest-posts-container {
   position: relative;
   margin-top: 20px;
@@ -58,13 +56,19 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Chat window */
+.latest-posts-container h2 {
+  text-align: center; /* Centra el título */
+  font-size: 1.5rem;
+  margin-bottom: 15px; /* Espacio debajo del título */
+  
+}
+
 .chat-window {
   max-height: 400px;
   overflow-y: scroll;
 }
 
-/* Estilos para los mensajes */
+
 .chat-message {
   background-color: white;
   border: 1px solid #ddd;
@@ -83,7 +87,7 @@
   color: #555;
 }
 
-/* Ver más formato. pendiente revisar si queda bien */
+
 .view-more {
   text-align: right;
   margin-top: 10px;
@@ -98,19 +102,43 @@
   text-decoration: underline;
 }
 
-/* responsive */
+/* Diseño responsive */
+
+
 @media (min-width: 768px) {
   .content-wrapper {
-    flex-direction: row; /* para pantallas grandes */
+    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    gap: 40px;
   }
 
   .main-content {
-    width: 60%;
+    flex-basis: 60%;
+    margin-bottom: 0px;
   }
 
   .latest-posts-container {
-    width: 35%;
+    flex-basis: 35%;
+    
+    
+  }
+}
+
+/* Para pantallas pequeñas, pasan a formato columna */
+@media (max-width: 767px) {
+  .content-wrapper {
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-content {
+    width: 100%; 
+    margin-bottom: 20px; 
+  }
+
+  .latest-posts-container {
+    width: 100%;
+    margin-top: 130px;
   }
 }

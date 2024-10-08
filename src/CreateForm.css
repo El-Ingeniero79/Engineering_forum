@@ -1,17 +1,18 @@
-
 .postform-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url('./images/imagen_ingenieria3_pensando.jpg'); 
+  align-items: flex-start;
+  height: calc(100vh-60px); /* Altura completa de la vista */
+  background-image: url('./images/imagen_ingenieria3_pensando.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  padding-top: 60px;
+  
 }
 
-/* Capa semitransparente encima de la imagen con desenfoque */
+/* Capa semitransparente encima de la imagen sin desenfoque */
 .postform-container::before {
   content: '';
   position: absolute;
@@ -19,78 +20,62 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: inherit;
-  background-size: inherit; 
-  background-position: inherit; 
-  background-repeat: inherit; 
-  filter: blur(10px); /* Aplicar desenfoque de 10px, ver si queda bien sino modificar numero */
-  opacity: 0.8; /* Para controlar la visibilidad de la capa desenfocada ver si queda bien sino modificar numero*/
-  z-index: -1; /* Hace que el fondo esté detrás del contenido  */
+  background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente */
+  z-index: 0; /* Hace que el fondo esté detrás del contenido */
 }
 
 /* Tarjeta del formulario */
+/* Estilo común para título y tarjeta del formulario */
+.form-title {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 30px; /* Mismo padding que la tarjeta del formulario */
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  width: 400px; /* Ancho fijo en pantallas grandes */
+  max-width: 90%; /* Máximo 90% del ancho de la pantalla */
+  text-align: center; /* Centrar texto */
+  margin-bottom: 20px; /* Margen inferior para separar del formulario */
+  z-index: 1; /* Asegura que el título esté por encima del fondo */
+}
+
+/* Estilo del formulario (sin cambios, solo un recordatorio) */
 .postform-card {
-  background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente revisar si queda chulo, sino modificar numero */
+  position: relative;
+  z-index: 1; /* Asegura que el contenido esté por encima del fondo */
+  /* background-color: rgba(255, 255, 255, 0.85);  */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-width: 90%;
-  z-index: 1; /* Asegura que el contenido esté por encima de la imagen de fondo */
+  width: 400px; /* Ancho fijo en pantallas grandes */
+  max-width: 90%; /* Máximo 90% del ancho de la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
+
+
 
 /* Estilo de los campos de entrada */
 .form-group {
   margin-bottom: 20px;
+  width: 100%; /* Asegúrate que los campos ocupen todo el ancho */
 }
 
 .form-control {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  font-size: 18px;
+  border: 2px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 
 .textarea {
-  height: 150px;
-}
-
-/* Estilo para el área de arrastrar y soltar imagenes */
-.file-upload {
-  border: 2px dashed #ddd;
-  padding: 20px;
-  text-align: center;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  position: relative;
-  color: #888;
-  transition: background-color 0.3s ease;
-}
-
-.file-upload input[type="file"] {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-.file-upload.drag-active {
-  background-color: #f0f8ff;
-  border-color: #007bff;
-  color: #007bff;
+  height: 150px; /* Altura fija para el área de texto */
 }
 
 /* Estilo para los botones */
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .btn-primary {
   background-color: #007bff;
   color: white;
@@ -105,23 +90,34 @@
   background-color: #0056b3;
 }
 
+/* Alineación de la opción restringida y el botón */
+.restricted-label {
+  margin: 20px 0; /* Margen para separar de otros elementos */
+  text-align: center; /* Centra el texto */
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .postform-card {
-      width: 100%;
-      padding: 20px;
+    width: 90%; /* Ancho del 90% en pantallas pequeñas */
+    padding: 20px; /* Relleno más pequeño en pantallas pequeñas */
   }
 
-  .file-upload {
-      padding: 15px;
+  .form-control {
+    font-size: 14px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+    padding: 8px; /* Relleno más pequeño en pantallas pequeñas */
   }
 
-  .form-actions {
-      flex-direction: column;
-      gap: 15px;
+  .textarea {
+    height: 120px; /* Altura reducida para el área de texto en pantallas pequeñas */
   }
 
   .btn-primary {
-      width: 100%;
+    padding: 8px 16px; /* Relleno más pequeño para botones en pantallas pequeñas */
+  }
+
+  /* Alineación y espaciado para la etiqueta de restringido */
+  .restricted-label {
+    margin: 15px 0; /* Margen más pequeño para pantallas pequeñas */
   }
 }

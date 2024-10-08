@@ -12,7 +12,6 @@
   z-index: 1;
 }
 
-
 .home-container::before {
   content: '';
   position: absolute;
@@ -32,9 +31,8 @@
   gap: 20px; 
 }
 
-
 .main-content {
-  text-align: center;
+  text-align: justify;
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
@@ -42,8 +40,63 @@
   width: 100%;
   margin-bottom: 20px;
 }
+.main-content p {
+  line-height: 32px;
+}
+.main-content h1 {
+  text-align: center;
+  font-size: 1.8em;
+}
 
+.cita {
+  text-align: center;
+  font-size: 0.9em;
+}
 
+.main-content h2 {
+  text-align: center;
+  font-size: 1.5em;
+}
+.normas {
+  font-size: 1em;
+}
+/* Normas del foro sin fondo en los bullet points */
+.normas ol {
+  counter-reset: item; /* Reinicia el contador */
+  list-style: none; /* Elimina los bullets por defecto */
+  padding-left: 0; /* Elimina el padding izquierdo */
+}
+
+.normas ol > li {
+  counter-increment: item; /* Incrementa el contador */
+  margin-bottom: 10px;
+  padding: 5px; /* Espacio alrededor del texto */
+  position: relative; /* Necesario para el pseudo-elemento */
+  background: none;
+}
+
+.normas ol > li:before {
+  content: counter(item) ". "; /* Muestra el número del contador */
+  font-weight: bold;
+  color: #228b22; /* Color verde para el número */
+}
+
+.normas ol ol {
+  counter-reset: subitem; /* Reinicia el contador de subniveles */
+  padding-left: 20px; /* Indentación para el subnivel */
+}
+
+.normas ol ol > li {
+  counter-increment: subitem; /* Incrementa el contador del subnivel */
+}
+
+.normas ol ol > li:before {
+  content: counter(subitem, lower-alpha) ". "; /* Muestra letras en lugar de números */
+  font-weight: bold;
+  color: #228b22; /* Color verde para el subíndice */
+}
+
+/* Estilo del contenedor de últimos posts */
 .latest-posts-container {
   position: relative;
   margin-top: 20px;
@@ -53,14 +106,13 @@
   padding: 10px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 128, 0, 0.3); /* Sombra verde */
 }
 
 .latest-posts-container h2 {
-  text-align: center; /* Centra el título */
+  text-align: center;
   font-size: 1.5rem;
-  margin-bottom: 15px; /* Espacio debajo del título */
-  
+  margin-bottom: 15px;
 }
 
 .chat-window {
@@ -68,9 +120,8 @@
   overflow-y: scroll;
 }
 
-
 .chat-message {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -87,24 +138,35 @@
   color: #555;
 }
 
-
+/* Botón "Ver más" centrado y con color visible */
 .view-more {
-  text-align: right;
-  margin-top: 10px;
+  text-align: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .view-more a {
-  color: #007bff;
+  display: flex;
+  padding: 10px 20px;
+  background-color: #228b22; /* Verde */
+  color: white; /* Texto blanco para mejor visibilidad */
+  
+  border-radius: 5px;
+  align-items: flex-end;
+  justify-content: center;
   text-decoration: none;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 128, 0, 0.3); /* Sombra verde */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .view-more a:hover {
-  text-decoration: underline;
+  background-color: #006400; /* Verde más oscuro al pasar el ratón */
+  transform: translateY(-3px); /* Pequeño desplazamiento hacia arriba */
+  box-shadow: 0 6px 14px rgba(0, 128, 0, 0.4); /* Sombra más intensa */
 }
 
 /* Diseño responsive */
-
-
 @media (min-width: 768px) {
   .content-wrapper {
     flex-direction: row;
@@ -119,12 +181,9 @@
 
   .latest-posts-container {
     flex-basis: 35%;
-    
-    
   }
 }
 
-/* Para pantallas pequeñas, pasan a formato columna */
 @media (max-width: 767px) {
   .content-wrapper {
     flex-direction: column; 

@@ -32,4 +32,8 @@
     border-radius: 10px;
     max-width: 800px;
   }
-  
+  .icon-button {
+    align-items: center;
+    justify-content: center;
+    display: column;
+  }

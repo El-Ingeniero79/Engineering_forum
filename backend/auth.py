@@ -8,6 +8,7 @@ auth_bp = Blueprint('auth', __name__)
 
 logger = logging.getLogger(__name__)
 
+# Registro de usuarios
 @auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -16,22 +17,19 @@ def register():
     password = data.get('password')
     nick = data.get('nick')
 
-    
+    # Validaciones
     if not email or not password or not nick:
         logger.error('Faltan campos en la solicitud de registro')
         return jsonify(message="Todos los campos son obligatorios"), 400
 
-    
     if '@' not in email or '.' not in email.split('@')[-1]:
         logger.error(f'Formato de email inválido: {email}')
         return jsonify(message="Formato de email inválido"), 400
 
-    
     if len(password) < 8:
         logger.error(f'Contraseña demasiado corta para el usuario: {email}')
         return jsonify(message="La contraseña debe tener al menos 8 caracteres"), 400
 
-    
     if len(nick) < 3 or not nick.isalnum():
         logger.error(f'Nick inválido: {nick}')
         return jsonify(message="El nick debe tener al menos 3 caracteres y solo contener letras o números"), 400
@@ -59,7 +57,7 @@ def register():
         logger.error(f'Error inesperado durante el registro: {str(e)}')
         return jsonify(message="Error interno del servidor"), 500
 
-
+# Login de usuarios
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -76,7 +74,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and bcrypt.check_password_hash(user.password, password):
-            
+            # Crear el token de acceso
             access_token = create_access_token(identity=user.id)
             logger.info(f'Usuario autenticado exitosamente: {email}')
             return jsonify(

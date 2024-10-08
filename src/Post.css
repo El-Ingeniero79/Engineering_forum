@@ -46,18 +46,29 @@
   max-width: 800px;
   transition: width 0.3s ease; /* Añadir una transición suave cuando se ajusta el tamaño */
 }
+.sort-options {
+  color:rgba(69, 160, 73, 1);
+  font-size: 15px;
+}
 
+.sort-options select {
+  color:rgba(69, 160, 73, 1);
+  border-radius: 5px;
+  border: 2px 2px 2px 2px;
+  font-size: 20px;
+  border-width: 3px
+}
 /* Barra de búsqueda */
 .search-bar {
   width: 25%; /* Barra de búsqueda ocupa 25% del ancho en pantallas grandes revisar si queda mejor mas pequeña*/
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
+  padding-left: 0px;
   position: sticky;
   top: 20px; /* Fija la barra de búsqueda en su posición al hacer scroll */
   align-self: flex-start;
-  background-color: white; 
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  background-color: transparent; 
+  box-shadow: -31px 16px 24px -3px rgba(69, 160, 73, 1); 
   border-radius: 5px; 
   z-index: 2;
 }
@@ -68,7 +79,7 @@
   width: 100%;
   border-radius: 5px;
   border: 1px solid #ccc;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 4px 6px rgba(69, 160, 73, 1); 
 }
 
 /* Estilos para cada post */
@@ -102,6 +113,15 @@
 /* Margen en la parte superior de cada post */
 .post {
   margin-bottom: 40px;
+}
+/* borrado posts */
+.boton_borrar {
+  background-color: red;
+  color: white; /* Cambia el color del texto a blanco para mejor visibilidad */
+  border: none; /* Quita el borde del botón */
+  padding: 13px; /* Añade algo de espacio dentro del botón */
+  border-radius: 5px; /* Hace que las esquinas sean redondeadas */
+  cursor: pointer; /* Cambia el cursor cuando se pasa sobre el botón */
 }
 
 /* Estilo para la ventana de últimos posts */
@@ -147,10 +167,6 @@
   margin-top: 10px;
 }
 
-.view-more a {
-  color: #007bff;
-  text-decoration: none;
-}
 
 .view-more a:hover {
   text-decoration: underline;
@@ -164,14 +180,14 @@
 
   /* Barra de búsqueda fija debajo del título y visible en todo momento al hacer scroll */
   .search-bar {
-    width: 100%; 
+    width: 25%; 
     position: fixed; /* Barra fija al hacer scroll */
-    top: 60px; /*revisar para diferentes tamaños creo que habria que revisar extremos de tamaños porque se solapan en algunos */
-    left: 0;
-    right: 0;
-    padding: 10px 20px;
+    top: 0px; /*revisar para diferentes tamaños creo que habria que revisar extremos de tamaños porque se solapan en algunos */
+    
+    right: 50px;
+    padding: 0px 0px;
     z-index: 10; /* Asegura que esté siempre visible por encima de otros elementos */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: -31px 16px 24px -3px rgba(69, 160, 73, 1);
     background-color: white;
   }
 

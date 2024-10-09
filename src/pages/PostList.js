@@ -30,7 +30,7 @@ function PostList({ searchTerm }) {
   return (
     <div className="post-detail-container">
       <div className="sort-options">
-        <label>Ordenar por:        </label>
+        <label>Ordenar por:   </label>
         <select value={order} onChange={(e) => setOrder(e.target.value)}>
           <option value="desc">Más recientes</option>
           <option value="asc">Más antiguos</option>
@@ -46,7 +46,7 @@ function PostList({ searchTerm }) {
               <p><strong>Autor:</strong> {post.author?.nick || 'Autor desconocido'}</p>
               <p>{post.restricted && !user ? 'Este mensaje está restringido.' : (post.content ? post.content.substring(0, 50) + '...' : 'Contenido no disponible')}</p>
               <p><strong>Fecha de creación:</strong> {new Date(post.created_at).toLocaleDateString()}</p> {/* Mostrar la fecha */}
-              {post.image_url && <img src={post.image_url} alt="Post Attachment" className="post-image" />}
+              {/* {post.image_url && <img src={post.image_url} alt="Post Attachment" className="post-image" />} */}
             </div>
           ))
         ) : (

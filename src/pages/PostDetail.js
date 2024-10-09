@@ -9,9 +9,10 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function PostDetail() {
   const { id } = useParams();
-  const { user, token } = useAuth(); 
+  const { user, token } = useAuth();
   const [post, setPost] = useState(null);
   const [isEditingPost, setIsEditingPost] = useState(false);
+  const [originalContent, setOriginalContent] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +20,7 @@ function PostDetail() {
       try {
         const response = await axios.get(`/posts/${id}`);
         setPost(response.data);
+        setOriginalContent(response.data.content);
       } catch (error) {
         console.error('Error obteniendo el post:', error);
       }
@@ -46,17 +48,23 @@ function PostDetail() {
           Authorization: `Bearer ${token}`
         }
       });
-      setIsEditingPost(false);
-      const response = await axios.get(`/posts/${id}`);
-      setPost(response.data);
+      setIsEditingPost(false);  // Salir del modo de edición tras guardar
     } catch (error) {
       console.error('Error editando el post:', error);
     }
   };
 
+  const handleCancelEdit = () => {
+    setPost({ ...post, content: originalContent });  // Restaurar el contenido original
+    setIsEditingPost(false);  // Salir del modo de edición
+  };
+
+  const handleGoBack = () => {
+    navigate('/posts');
+  };
+
   if (!post) return <div>Loading...</div>;
 
-  // Formatear la fecha de creación
   const formattedDate = new Date(post.created_at).toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'long',
@@ -65,49 +73,48 @@ function PostDetail() {
     minute: '2-digit'
   });
 
-  // Verificar si el post es restringido y si el usuario está autenticado
-  if (post.restricted && !user) {
-    return (
-      <div className="post-detail-container">
-        <div className="post-container">
-          <h1>{post.title}</h1>
-          <p>Este post está restringido. Debes iniciar sesión para verlo.</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="post-detail-container">
       <div className="post-container">
         <h1>{post.title || 'Título no disponible'}</h1>
         <div className="post-meta">
-          <p><strong>Autor:</strong> {post.author?.nick || 'Autor desconocido'}</p> 
-                   
-          <p><strong>Fecha de creación:</strong> {formattedDate}</p> 
+          <p><strong>Autor:</strong> {post.author?.nick || 'Autor desconocido'}</p>
+          <p><strong>Fecha de creación:</strong> {formattedDate}</p>
         </div>
-        {isEditingPost ? (
-          <>
+
+        <div className="post-content">
+          {isEditingPost ? (
             <textarea
               value={post.content}
               onChange={(e) => setPost({ ...post, content: e.target.value })}
+              className="edit-textarea"
             />
-            <button onClick={handlePostEdit}>Guardar cambios</button>
-          </>
-        ) : (
-          <p>{post.content}</p>
-        )}
+          ) : (
+            <p>{post.content}</p>
+          )}
+        </div>
 
         {user && user.id === post.user_id && (
           <div className="post-actions">
-            <button onClick={() => setIsEditingPost(!isEditingPost)} className="icon-button">
-              <FontAwesomeIcon icon={faEdit} />
-            </button>
-            <button onClick={handlePostDelete} className="icon-button boton_borrar">
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
+            {isEditingPost ? (
+              <>
+                <button onClick={handlePostEdit} className="save-button">Guardar</button>
+                <button onClick={handleCancelEdit} className="cancel-button">Cancelar</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => setIsEditingPost(true)} className="icon-button">
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button onClick={handlePostDelete} className="icon-button boton-borrar">
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </>
+            )}
           </div>
         )}
+
+        <button className="back-button" onClick={handleGoBack}>Volver a la lista de posts</button>
       </div>
     </div>
   );

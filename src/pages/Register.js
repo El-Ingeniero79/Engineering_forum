@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../Form.css';
 
@@ -15,26 +14,29 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('Las contraseñas no coinciden');
       return;
     }
     try {
-      setError(''); 
-      
+      setError('');
+
       const response = await axios.post('http://localhost:5000/register', {
         email,
         password,
         nick,
       });
-      if (response.data.error) {
-        throw new Error(response.data.error);
-      }
-      
+
+      alert('Registro exitoso');
       localStorage.setItem('token', response.data.token); 
-      
       navigate('/');
     } catch (error) {
-      setError('Registration failed: ' + error.message);
+      // Mostrar errores específicos del registro
+      if (error.response && error.response.data) {
+        // Usa directamente el mensaje de error de la respuesta
+        setError(error.response.data.error || 'Error en el registro.');
+      } else {
+        setError('Error en el registro.');
+      }
     }
   };
 
@@ -73,6 +75,7 @@ function Register() {
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Register</button>
       </form>
+      <p className='aclaracion'><b>Recuerda:</b><br /> -Introduce un email correcto.<br /> -La contraseña debe tener al menos 8 caracteres. <br />-El nick debe tener al menos 3 caracteres y solo letras o números</p>
     </div>
   );
 }

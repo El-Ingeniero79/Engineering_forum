@@ -1,4 +1,4 @@
-.home-container {
+.home-container { 
   background-image: url('./images/imagen_ingenieria.jpg');
   background-size: cover;
   background-position: center;
@@ -38,11 +38,13 @@
   border-radius: 10px;
   z-index: 1;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 40px; /* Aumentar margen inferior para espacio */
 }
+
 .main-content p {
   line-height: 32px;
 }
+
 .main-content h1 {
   text-align: center;
   font-size: 1.8em;
@@ -57,9 +59,11 @@
   text-align: center;
   font-size: 1.5em;
 }
+
 .normas {
   font-size: 1em;
 }
+
 /* Normas del foro sin fondo en los bullet points */
 .normas ol {
   counter-reset: item; /* Reinicia el contador */
@@ -98,7 +102,6 @@
 
 /* Estilo del contenedor de últimos posts */
 .latest-posts-container {
-  position: relative;
   margin-top: 20px;
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #ccc;
@@ -106,6 +109,7 @@
   padding: 10px;
   max-width: 400px;
   width: 100%;
+  height: fit-content;
   box-shadow: 0 4px 10px rgba(0, 128, 0, 0.3); /* Sombra verde */
 }
 
@@ -193,11 +197,12 @@
 
   .main-content {
     width: 100%; 
-    margin-bottom: 20px; 
+    margin-bottom: 600px; /* Aumentar margen inferior para espacio */
+    padding: 1rem; /* Ajustar padding si es necesario */
   }
 
   .latest-posts-container {
     width: 100%;
-    margin-top: 130px;
+    margin-top: 770px; 
   }
 }

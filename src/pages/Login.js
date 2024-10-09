@@ -17,7 +17,13 @@ function Login() {
       await login(email, password);
       navigate('/');
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to log in');
+      // Muestra mensajes de error más específicos basados en la respuesta del backend
+      if (error.response && error.response.data) {
+        // Usa directamente el mensaje de error de la respuesta
+        setError(error.response.data.error || 'Error de autenticación.');
+      } else {
+        setError('Error al iniciar sesión.');
+      }
     }
   };
 

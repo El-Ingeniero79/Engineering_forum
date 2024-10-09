@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from '../.api';
+import axios from '../.api'; // Asegúrate de que esta ruta esté correcta
 
 const AuthContext = createContext();
 
@@ -18,7 +18,8 @@ export const AuthProvider = ({ children }) => {
       setUser(data.user);
     } catch (error) {
       console.error('Error en login:', error);
-      throw new Error(error.response?.data?.message || 'Falló el inicio de sesión');
+      // Lanzar el error para que Login.js pueda manejarlo
+      throw error; 
     }
   };
 
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading, token }}>  {/* Añadido token */}
+    <AuthContext.Provider value={{ user, login, register, logout, loading, token }}>
       {children}
     </AuthContext.Provider>
   );
